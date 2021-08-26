@@ -51,3 +51,6 @@
 # Embedded web-server pid file
 /.web-server-pid
 /composer.lock
+/.php-cs-fixer.cache
+/tests/cache
+/.phpunit.result.cache
