@@ -1,6 +1,6 @@
 # avro-regy
 
-This bundle provides a simple way to integrate with the Confluent Schema Registry.
+This bundle provides a simple way to integrate Symfony Messenger with the Confluent Schema Registry.
 
 ## Installation
 
