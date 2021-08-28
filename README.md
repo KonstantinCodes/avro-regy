@@ -40,6 +40,21 @@ avro_regy:
       schema_dir: '%kernel.project_dir%/src/Orders/Domain/Model/Event/Avro/'
 ```
 
+Each serializer that you configure, will be available as it's own service. The service id is `avro_regy.serializer.<name>`.
+In `config/messenger.yaml` it can be called like so:
+
+```yaml
+framework:
+    messenger:
+        transports:
+            catalogue:
+                dsn: '%env(MESSENGER_TRANSPORT_CATALOGUE_KAFKA_DSN)%'
+                serializer: avro_regy.serializer.catalogue
+                options:
+                    ...
+```
+
+
 Then, write your serializer like so:
 ```php
 namespace App\Catalogue\Infrastructure\Messenger\Serializer;
