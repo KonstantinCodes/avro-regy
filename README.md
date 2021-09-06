@@ -101,7 +101,7 @@ App\Catalogue\Infrastructure\Messenger\Serializer\ProductCreatedSerializer:
     - {
       name: 'avro_regy.serializer.catalogue',
       qualified_name: 'com.Example.Catalogue.ProductCreated',
-      class_name: '\App\Catalogue\Domain\Model\Event\ProductCreated',
+      class_name: 'App\Catalogue\Domain\Model\Event\ProductCreated',
       key_subject: 'catalogue.product_created-key',
       value_subject: 'catalogue.product_created-value'
     }
