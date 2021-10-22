@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Koco\AvroRegy;
 
-use AvroPrimitiveSchema;
 use AvroRecordSchema;
 use AvroSchema;
 use const FlixTech\AvroSerializer\Common\get;
@@ -52,24 +51,18 @@ class FlixTechSchemaRegistryClient
     {
         return $this->recordSerializer->decodeMessage(
             $binary,
-            $this->getAvroValueSchema($avsc)
+            AvroSchema::parse($avsc)
         );
     }
 
-    public function encodeKey($record, string $subject, string $avsc): string
+    /**
+     * @param mixed $record
+     */
+    public function encode($record, string $subject, string $avsc): string
     {
         return $this->recordSerializer->encodeRecord(
             $subject,
-            $this->getAvroKeySchema($avsc),
-            $record
-        );
-    }
-
-    public function encodeValue($record, string $subject, string $avsc): string
-    {
-        return $this->recordSerializer->encodeRecord(
-            $subject,
-            $this->getAvroValueSchema($avsc),
+            AvroSchema::parse($avsc),
             $record
         );
     }
@@ -94,21 +87,5 @@ class FlixTechSchemaRegistryClient
         }
 
         return $schema;
-    }
-
-    protected function getAvroValueSchema(string $avsc): AvroRecordSchema
-    {
-        $avroSchema = AvroSchema::parse($avsc);
-
-        if (!$avroSchema instanceof AvroRecordSchema) {
-            throw new \Exception('AVRO Schema not a record!');
-        }
-
-        return $avroSchema;
-    }
-
-    protected function getAvroKeySchema(string $avsc): AvroSchema
-    {
-        return AvroSchema::parse($avsc);
     }
 }

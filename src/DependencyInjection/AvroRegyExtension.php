@@ -13,7 +13,10 @@ class AvroRegyExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $configuration = $this->getConfiguration($configs, $container);
+        if (!$configuration = $this->getConfiguration($configs, $container)) {
+            return;
+        }
+
         $config = $this->processConfiguration($configuration, $configs);
 
         foreach ($config['serializers'] as $serializerName => $serializerConfig) {

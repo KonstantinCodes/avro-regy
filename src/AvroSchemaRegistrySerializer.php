@@ -107,10 +107,10 @@ class AvroSchemaRegistrySerializer implements SerializerInterface
         $keyAvsc = $this->getKeyAvsc($qualifiedName);
 
         if ($keyAvsc && $keySubject && \array_key_exists('key', $encoded)) {
-            $encoded['key'] = $this->registryClient->encodeKey($encoded['key'], $keySubject, $keyAvsc);
+            $encoded['key'] = $this->registryClient->encode($encoded['key'], $keySubject, $keyAvsc);
         }
 
-        $encoded['body'] = $this->registryClient->encodeValue(
+        $encoded['body'] = $this->registryClient->encode(
             $encoded['body'],
             $this->subjectsByQualifiedName[$qualifiedName]['value'],
             $this->getValueAvsc($qualifiedName)
