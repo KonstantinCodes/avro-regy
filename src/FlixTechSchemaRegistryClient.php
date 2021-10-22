@@ -107,14 +107,8 @@ class FlixTechSchemaRegistryClient
         return $avroSchema;
     }
 
-    protected function getAvroKeySchema(string $avsc): AvroPrimitiveSchema
+    protected function getAvroKeySchema(string $avsc): AvroSchema
     {
-        $avroSchema = AvroSchema::parse($avsc);
-
-        if (!$avroSchema instanceof AvroPrimitiveSchema) {
-            throw new \Exception('AVRO Schema not a primitive schema, which is expected for keys!');
-        }
-
-        return $avroSchema;
+        return AvroSchema::parse($avsc);
     }
 }
