@@ -14,7 +14,7 @@ use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class ServiceWiringTest extends TestCase
 {
-    public function testServiceWiring()
+    public function testServiceWiring(): void
     {
         $kernel = new AvroRegyTestingKernel([
             'base_uri' => 'http://localhost',
@@ -48,14 +48,14 @@ class AvroRegyTestingKernel extends Kernel
         parent::__construct('test', true);
     }
 
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new AvroRegyBundle(),
         ];
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(function(ContainerBuilder $builder) {
             $builder->register('example_serializer', ExampleSerializer::class)
@@ -73,7 +73,7 @@ class AvroRegyTestingKernel extends Kernel
         });
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return __DIR__.'/cache/'.spl_object_hash($this);
     }

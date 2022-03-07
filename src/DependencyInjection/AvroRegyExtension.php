@@ -33,7 +33,7 @@ class AvroRegyExtension extends Extension
         }
     }
 
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'avro_regy';
     }
