@@ -25,6 +25,7 @@ class AvroRegyExtension extends Extension
                 $serializerConfig['base_uri'] ?? $config['base_uri'],
                 $serializerConfig['options'] ?? $config['options'],
                 $serializerConfig['file_naming_strategy'] ?? $config['file_naming_strategy'],
+                $config['request_options'] ?? [],
             ]);
 
             $definition->setPublic(true);

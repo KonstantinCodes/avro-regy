@@ -19,9 +19,9 @@ class AvroSchemaRegistrySerializer implements SerializerInterface
     protected array $classNameToQualifiedName = [];
     protected array $subjectsByQualifiedName = [];
 
-    public function __construct(string $schemaDir, string $schemaRegistryUrl, array $recordSerializerOptions, string $fileNamingStrategy)
+    public function __construct(string $schemaDir, string $schemaRegistryUrl, array $recordSerializerOptions, string $fileNamingStrategy, array $requestOptions = [])
     {
-        $this->registryClient = new FlixTechSchemaRegistryClient($schemaRegistryUrl, $recordSerializerOptions);
+        $this->registryClient = new FlixTechSchemaRegistryClient($schemaRegistryUrl, $recordSerializerOptions, $requestOptions);
         $this->fileNamingStrategy = $fileNamingStrategy;
         $this->schemaDir = $schemaDir;
     }

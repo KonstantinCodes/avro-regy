@@ -6,15 +6,21 @@ namespace Koco\AvroRegy;
 
 use AvroRecordSchema;
 use AvroSchema;
+
 use const FlixTech\AvroSerializer\Common\get;
+
 use FlixTech\AvroSerializer\Objects\RecordSerializer;
+
 use function FlixTech\AvroSerializer\Protocol\decode;
+
 use const FlixTech\AvroSerializer\Protocol\PROTOCOL_ACCESSOR_SCHEMA_ID;
+
 use FlixTech\SchemaRegistryApi\Registry\Cache\AvroObjectCacheAdapter;
 use FlixTech\SchemaRegistryApi\Registry\CachedRegistry;
 use FlixTech\SchemaRegistryApi\Registry\PromisingRegistry;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
+
 use function Widmogrod\Functional\curryN;
 use function Widmogrod\Functional\valueOf;
 
@@ -23,13 +29,16 @@ class FlixTechSchemaRegistryClient
     protected CachedRegistry $schemaRegistryClient;
     protected RecordSerializer $recordSerializer;
 
-    public function __construct(string $schemaRegistryUrl, array $recordSerializerOptions)
+    public function __construct(string $schemaRegistryUrl, array $recordSerializerOptions, array $requestOptions)
     {
         $this->schemaRegistryClient = new CachedRegistry(
             new PromisingRegistry(
-                new Client([
-                    'base_uri' => $schemaRegistryUrl,
-                ])
+                new Client(
+                    array_merge(
+                        ['base_uri' => $schemaRegistryUrl],
+                        $requestOptions,
+                    )
+                )
             ),
             new AvroObjectCacheAdapter()
         );
