@@ -163,7 +163,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    public function testRequestOptionAuthValidConfig(): void
+    public function testRequestOptionsValidConfig(): void
     {
         static::assertConfigurationIsValid(
             [[
@@ -173,6 +173,7 @@ class ConfigurationTest extends TestCase
                         'test',
                         'test',
                     ],
+                    'timeout' => 30,
                 ],
                 'file_naming_strategy' => 'subject',
                 'options' => [
