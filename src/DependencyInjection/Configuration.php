@@ -16,6 +16,31 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('base_uri')->isRequired()->end()
+                ->arrayNode('request_options')
+                    ->children()
+                        ->variableNode('auth')
+                            ->validate()
+                                ->ifTrue(function ($v) {
+                                    return !\is_array($v) && !\is_string($v);
+                                })
+                                ->thenInvalid('auth can be: string or array')
+                            ->end()
+                        ->end()
+                    ->scalarNode('timeout')
+                        ->beforeNormalization()
+                        ->always(function ($v) {
+                            return is_numeric($v) ? (float) $v : $v;
+                        })
+                        ->end()
+                            ->validate()
+                                ->ifTrue(function ($v) {
+                                    return !\is_float($v) && !(\is_string($v) && strpos($v, 'env_') === 0);
+                                })
+                                ->thenInvalid('timeout can be: float')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
                 ->enumNode('file_naming_strategy')
                     ->values(['subject', 'qualified_name'])
                     ->isRequired()

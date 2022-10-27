@@ -162,4 +162,30 @@ class ConfigurationTest extends TestCase
             ]]
         );
     }
+
+    public function testRequestOptionsValidConfig(): void
+    {
+        static::assertConfigurationIsValid(
+            [[
+                'base_uri' => 'asdf',
+                'request_options' => [
+                    'auth' => [
+                        'test',
+                        'test',
+                    ],
+                    'timeout' => 30,
+                ],
+                'file_naming_strategy' => 'subject',
+                'options' => [
+                    'register_missing_schemas' => true,
+                    'register_missing_subjects' => true,
+                ],
+                'serializers' => [
+                    'test' => [
+                        'schema_dir' => 'test/',
+                    ],
+                ],
+            ]]
+        );
+    }
 }
